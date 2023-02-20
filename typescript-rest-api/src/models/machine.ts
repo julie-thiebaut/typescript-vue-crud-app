@@ -7,11 +7,13 @@ export interface MachineAttributes {
     id: number;
     mac: string;
     state: MachineState;
+    machineModelId: number;
 }
 
 export interface MachineAddAttributes {
     mac: string;
     state: MachineState;
+    machineModelId: number;
 }
 
 export interface MachineCreationAttributes
@@ -39,5 +41,14 @@ export const Machine = sequelize.define<MachineInstance>('machine', {
     state: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    machineModelId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        references: {
+            model: 'MachineModels',
+            key: 'id',
+        },
     },
 });

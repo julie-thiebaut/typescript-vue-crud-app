@@ -93,9 +93,9 @@ export default defineComponent({
                             this.$router.push('/login');
                         }
                     }
-                    await this.$router.push('/machine-models')
                 }
             }
+            await this.$router.push('/machine-models')
         }
     }
 })

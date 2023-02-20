@@ -10,6 +10,10 @@
                 <div class="mb-3">
                     <v-select v-model="state" :items="states" label="State"></v-select>
                 </div>
+                <div class="mb-3">
+                    <v-select v-model="machineModelId" :items="machineModels" item-text="name" item-value="id"
+                        label="Machine Model"></v-select>
+                </div>
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions>
@@ -30,7 +34,9 @@
 
 <script lang="ts">
 import { MachineAddAttributes } from '@/models/machine'
+import { MachineModel } from '@/models/machinemodel'
 import { get, update, create } from '@/services/machine.service'
+import { getAll } from '@/services/machinemodel.service'
 import axios from 'axios'
 import { defineComponent } from 'vue'
 
@@ -42,6 +48,8 @@ export default defineComponent({
             state: '',
             states: ['installed', 'maintenance', 'stock'],
             error: "",
+            machineModelId: 0,
+            machineModels: new Array<MachineModel>(),
             snackbar: false
         }
     },
@@ -72,9 +80,8 @@ export default defineComponent({
                 }
                 this.snackbar = true;
             }
-
-
         }
+        this.machineModels = await getAll("")
     },
     methods: {
         async submit() {
@@ -82,6 +89,7 @@ export default defineComponent({
                 const data = {
                     mac: this.mac,
                     state: this.state,
+                    machineModelId: this.machineModelId
                 } as MachineAddAttributes;
                 if (this.$route.params.id) {
                     await update(Number(this.$route.params.id), data)

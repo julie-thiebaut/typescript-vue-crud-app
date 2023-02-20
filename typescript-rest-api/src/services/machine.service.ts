@@ -11,9 +11,10 @@ import { MachineType } from '../models/machinetype';
 export async function create({
     mac,
     state,
+    machineModelId
 }: MachineAddAttributes): Promise<MachineInstance | null> {
     try {
-        return Machine.create({ mac, state });
+        return Machine.create({ mac, state, machineModelId });
     } catch (error) {
         throw error;
     }
