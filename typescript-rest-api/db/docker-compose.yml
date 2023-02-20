@@ -12,8 +12,8 @@ services:
     environment:
       MYSQL_DATABASE: machines
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_USER: julie
+      MYSQL_PASSWORD: julie
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
     restart: unless-stopped
     volumes:
@@ -27,7 +27,7 @@ services:
       - ./db.sql:/db.sql
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-    entrypoint: [ "bash", "-c", "sleep 10 && mysql --user=root --host=db --port=3306 machines < /db.sql && exit"] 
+    entrypoint: [ "bash", "-c", "sleep 10 && mysql --user=julie --password=julie --host=db --port=3306 machines < /db.sql && exit"] 
     depends_on:
       - db
 
